@@ -54,6 +54,12 @@ void setup()
 	tft.fillScreen(ST7735_BLACK);
 	//tft.setRotation(2);
 
+	Wire.begin(19, 17);
+	/*
+	 * Do not forget to comment out default I2C initialization
+	 * void Adafruit_AMG88xx::_i2c_init()
+	 */
+
 	// default settings
 	if (!amg.begin())
 	{
