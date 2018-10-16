@@ -106,12 +106,12 @@ float centralTemperature(float pixelArray[], int rows, int cols)
 
 void loop()
 {
-	int t_Start = millis();
+//	int t_Start = millis();
 
 	//read all the pixels
 	amg.readPixels(pixels);
 	rotatePixels(pixels, AMG_ROWS, AMG_COLS);
-	mirrorPixels(pixels, AMG_ROWS, AMG_COLS);
+//	mirrorPixels(pixels, AMG_ROWS, AMG_COLS);
 
 	colorMapper.updateScale(pixels, AMG_ROWS * AMG_COLS);
 
@@ -125,7 +125,7 @@ void loop()
 
 	drawpixels(pixels, dest_2d, INTERPOLATED_ROWS, INTERPOLATED_COLS, boxWidth, boxHeight, false);
 
-	int t_End = millis();
+//	int t_End = millis();
 
 	tft.setCursor(0, 138);
 	tft.fillRect(0, 129, 128, 160 - 128, tft.color565(0, 0, 127));
