@@ -12,7 +12,7 @@
 #include "Biquad.h"
 
 class TemperatureColorMapper {
-	float minTemp = 0, maxTemp = 0;
+	float minTemp = 0, maxTemp = 0, minTempF = -1000, maxTempF = 1000;
 	float a = 0, b = 0, c = 0, d = 0;
 	Biquad * minTempTrendFilter;
 	Biquad * maxTempTrendFilter;

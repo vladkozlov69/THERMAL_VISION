@@ -15,12 +15,12 @@ TemperatureColorMapper::TemperatureColorMapper()
 
 float TemperatureColorMapper::getMinTemp()
 {
-	return minTemp;
+	return minTempF;
 }
 
 float TemperatureColorMapper::getMaxTemp()
 {
-	return maxTemp;
+	return maxTempF;
 }
 
 void TemperatureColorMapper::updateScale(float data[], int dataSize)
@@ -35,7 +35,27 @@ void TemperatureColorMapper::updateScale(float data[], int dataSize)
 	}
 
 	minTemp = minTempTrendFilter->process(minTemp);
-	maxTemp = maxTempTrendFilter->process(maxTemp) + 1;
+	maxTemp = maxTempTrendFilter->process(maxTemp);
+
+	if (maxTempF - maxTemp > 2)
+	{
+		maxTempF = round(maxTemp) + 1;
+	}
+
+	if (maxTempF - maxTemp < 1)
+	{
+		maxTempF = round(maxTemp) + 1;
+	}
+
+	if (minTemp - minTempF > 2)
+	{
+		minTempF = round(maxTemp) - 1;
+	}
+
+	if (minTemp - minTempF  < 1)
+	{
+		minTempF = round(minTemp) + 1;
+	}
 
 	updateCoefficients();
 }
@@ -91,10 +111,10 @@ uint16_t TemperatureColorMapper::getColor(float value)
 
 void TemperatureColorMapper::updateCoefficients()
 {
-	a = minTemp + (maxTemp - minTemp) * 0.2121;
-	b = minTemp + (maxTemp - minTemp) * 0.3182;
-	c = minTemp + (maxTemp - minTemp) * 0.4242;
-	d = minTemp + (maxTemp - minTemp) * 0.8182;
+	a = minTempF + (maxTempF - minTempF) * 0.2121;
+	b = minTempF + (maxTempF - minTempF) * 0.3182;
+	c = minTempF + (maxTempF - minTempF) * 0.4242;
+	d = minTempF + (maxTempF - minTempF) * 0.8182;
 }
 
 uint16_t TemperatureColorMapper::color565(uint8_t red, uint8_t green, uint8_t blue)
